@@ -69,9 +69,14 @@ main {
 .github-logo:hover {
   transform: rotate(360deg);
 }
-main > a {
-  margin: 25px;
+.copyright-area > a {
   text-decoration: none;
   clear: both;
   color: rgb(105, 105, 105);
+}
+.copyright-area {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 4px;
 }
