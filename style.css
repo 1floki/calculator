@@ -1,6 +1,7 @@
 body {
   font-family: "Roboto", sans-serif;
   background-color: rgb(232, 232, 232);
+  max-height: 100vh;
 }
 main {
   display: flex;
