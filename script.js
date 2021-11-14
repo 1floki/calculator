@@ -1,14 +1,3 @@
-//digits.innerText = 888.88888;
-
-// let buttons = document.querySelectorAll(".calc-button");
-// let clicks = [];
-// for (const button of buttons) {
-//   button.addEventListener("click", () => {
-//     clicks.push(button.id);
-//     console.log(button.id)
-//   });
-// }
-
 let buttons = document.querySelectorAll(".calc-button");
 buttons.forEach((btn) => {
   btn.addEventListener("click", function takeButtonId() {
@@ -18,7 +7,8 @@ buttons.forEach((btn) => {
 
 let firstNumber = "";
 let operator = "";
-let secondNumber = "";
+let previousNumber = "";
+let currentDisplay = document.getElementById("digits");
 
 function buttonClicked(button) {
   if (isNaN(button)) {
@@ -33,18 +23,76 @@ function buttonClicked(button) {
 }
 
 function operatorPressed(button) {
-  if (firstNumber.length != 0) {
+  if (button == "/" || button == "*" || button == "-" || button == "+") {
     operator = button;
-    console.log(operator);
+    if (firstNumber.length != 0 && secondNumber.length != 0) {
+      operate(firstNumber, operator, secondNumber);
+    }
+  } else if (
+    button == "=" &&
+    firstNumber.length != 0 &&
+    secondNumber.length != 0
+  ) {
+    operate(firstNumber, operator, secondNumber);
+  } else if (button == "ac") {
+  } else if (button == "ce") {
+  } else if (button == "%") {
+  } else if (button == "change-symbol") {
+  } else if (button == ".") {
+  } else {
+    console.log("Unexpected behavior at operator pressed");
   }
 }
 
 function firstNumberPressed(button) {
   firstNumber += button;
-  document.getElementById("digits").innerText = firstNumber;
+  updateDisplay(firstNumber);
 }
 
 function secondNumberPressed(button) {
   secondNumber += button;
-  document.getElementById("digits").innerText = secondNumber;
+  updateDisplay(secondNumber);
+}
+
+function updateDisplay(activeDisplay) {
+  currentDisplay.innerText = activeDisplay;
+}
+
+function operate(first, operation, second) {
+  if (operation == "+") {
+    add(first, second);
+  } else if (operation == "-") {
+    subtract(first, second);
+  } else if (operation == "*") {
+    multiply(first, second);
+  } else if (operation == "/") {
+    divide(first, second);
+  } else {
+    console.log("Fatal error at operate");
+  }
+}
+
+function add(a, b) {
+  firstNumber = parseFloat(a) + parseFloat(b);
+  showAnswer(firstNumber);
+}
+
+function subtract(a, b) {
+  firstNumber = parseFloat(a) - parseFloat(b);
+  showAnswer(firstNumber);
+}
+
+function multiply(a, b) {
+  firstNumber = parseFloat(a) * parseFloat(b);
+  showAnswer(firstNumber);
+}
+
+function divide(a, b) {
+  firstNumber = parseFloat(a) / parseFloat(b);
+  showAnswer(firstNumber);
+}
+
+function showAnswer(getAnswer) {
+  secondNumber = "";
+  updateDisplay(getAnswer);
 }
