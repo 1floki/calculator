@@ -8,7 +8,6 @@ main {
   justify-content: center;
   align-items: center;
   margin-top: 5%;
-
 }
 .container {
   display: flex;
@@ -89,10 +88,11 @@ main {
   src: URL("digital-7.ttf") format("truetype");
 }
 .display-area {
-    font-family: digital7;
+  font-family: digital7;
 }
 .display-area > #digits {
-    font-size: 90px;
-    margin-top: 5px;
-    text-align: right;
+  font-size: 90px;
+  margin-top: 5px;
+  text-align: right;
 }
+
