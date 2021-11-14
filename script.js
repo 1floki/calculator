@@ -8,3 +8,10 @@
 //     console.log(button.id)
 //   });
 // }
+
+let buttons = document.querySelectorAll(".calc-button");
+buttons.forEach((btn) => {
+  btn.addEventListener("click", function takeButtonId() {
+    console.log(btn.id);
+  });
+});
