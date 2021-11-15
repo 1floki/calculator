@@ -112,6 +112,8 @@ function showAnswer(getAnswer) {
   getAnswer = getAnswer.toFixed(0);
   if (getAnswer.length > 8) {
     getAnswer = "RangeErr.";
+    firstNumber = "";
+    secondNumber = "";
   }
   updateDisplay(getAnswer);
 }
