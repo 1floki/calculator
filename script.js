@@ -109,7 +109,7 @@ function divide(a, b) {
 function showAnswer(getAnswer) {
   firstNumber = getAnswer;
   secondNumber = "";
-  getAnswer = getAnswer.toFixed(2);
+  getAnswer = getAnswer.toFixed(0);
   if (getAnswer.length > 8) {
     getAnswer = "RangeErr.";
   }
