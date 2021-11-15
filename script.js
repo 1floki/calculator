@@ -7,6 +7,7 @@ buttons.forEach((btn) => {
 
 let firstNumber = "";
 let operator = "";
+let currentOperator = "";
 let secondNumber = "";
 let currentDisplay = document.getElementById("digits");
 
@@ -24,9 +25,10 @@ function buttonClicked(button) {
 
 function operatorPressed(button) {
   if (button == "/" || button == "*" || button == "-" || button == "+") {
+    currentOperator = operator;
     operator = button;
     if (firstNumber.length != 0 && secondNumber.length != 0) {
-      operate(firstNumber, operator, secondNumber);
+      operate(firstNumber, currentOperator, secondNumber);
     }
   } else if (
     button == "=" &&
@@ -35,10 +37,15 @@ function operatorPressed(button) {
   ) {
     operate(firstNumber, operator, secondNumber);
   } else if (button == "ac") {
+    otherButton(button);
   } else if (button == "ce") {
+    otherButton(button);
   } else if (button == "%") {
+    otherButton(button);
   } else if (button == "change-symbol") {
+    otherButton(button);
   } else if (button == ".") {
+    otherButton(button);
   } else {
     console.log("Unexpected behavior at operator pressed");
   }
@@ -73,26 +80,105 @@ function operate(first, operation, second) {
 }
 
 function add(a, b) {
-  firstNumber = parseFloat(a) + parseFloat(b);
-  showAnswer(firstNumber);
+  calcs = parseFloat(a) + parseFloat(b);
+  showAnswer(calcs);
 }
 
 function subtract(a, b) {
-  firstNumber = parseFloat(a) - parseFloat(b);
-  showAnswer(firstNumber);
+  calcs = parseFloat(a) - parseFloat(b);
+  showAnswer(calcs);
 }
 
 function multiply(a, b) {
-  firstNumber = parseFloat(a) * parseFloat(b);
-  showAnswer(firstNumber);
+  calcs = parseFloat(a) * parseFloat(b);
+  showAnswer(calcs);
 }
 
 function divide(a, b) {
-  firstNumber = parseFloat(a) / parseFloat(b);
-  showAnswer(firstNumber);
+  let calcs = "";
+  if (b == 0) {
+    updateDisplay("Infinity");
+    firstNumber = 0;
+    secondNumber = 0;
+  } else {
+    calcs = parseFloat(a) / parseFloat(b);
+  }
+  showAnswer(calcs);
 }
 
 function showAnswer(getAnswer) {
+  firstNumber = getAnswer;
   secondNumber = "";
+  getAnswer = getAnswer.toFixed(2);
+  if (getAnswer.length > 8) {
+    getAnswer = "RangeErr.";
+  }
   updateDisplay(getAnswer);
+}
+
+function otherButton(oButton) {
+  if (oButton == "ce") {
+    if (secondNumber != 0) {
+      secondNumber = "";
+      updateDisplay(0);
+    } else if (firstNumber != 0) {
+      firstNumber = "";
+      updateDisplay(0);
+    }
+  } else if (oButton == "ac") {
+    location.reload();
+  } else if (oButton == "%") {
+    if (secondNumber != 0) {
+      secondNumber = secondNumber * 0.01;
+      secondNumber = secondNumber.toFixed(2);
+      updateDisplay(secondNumber);
+    } else if (firstNumber != 0) {
+      firstNumber = firstNumber * 0.01;
+      firstNumber = firstNumber.toFixed(2);
+      updateDisplay(firstNumber);
+    }
+  } else if (oButton == ".") {
+    if (secondNumber != 0) {
+      secondNumber = checkForPeriod(secondNumber);
+      updateDisplay(secondNumber);
+    } else if (firstNumber != 0) {
+      firstNumber = checkForPeriod(firstNumber);
+      operator = "";
+      updateDisplay(firstNumber);
+    }
+  } else if (oButton == "change-symbol") {
+    if (secondNumber != 0) {
+      secondNumber = checkSymbol(secondNumber);
+      updateDisplay(secondNumber);
+    } else if (firstNumber != 0) {
+      firstNumber = checkSymbol(firstNumber);
+      operator = "";
+      updateDisplay(firstNumber);
+    }
+  }
+}
+
+function checkForPeriod(check) {
+  let found = false;
+  for (let i = 0; i < check.length; i++) {
+    if (check.charAt(i) == ".") {
+      found = true;
+    }
+  }
+  if (found == false) {
+    check = check + ".";
+  }
+  return check;
+}
+
+function checkSymbol(check) {
+  let found = false;
+  for (let i = 0; i < check; i++) {
+    if ("check".charAt(i) == "-") {
+      found = true;
+    }
+  }
+  if (found == false) {
+    return (check = -check);
+  }
 }
