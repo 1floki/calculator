@@ -7,7 +7,7 @@ buttons.forEach((btn) => {
 
 let firstNumber = "";
 let operator = "";
-let previousNumber = "";
+let secondNumber = "";
 let currentDisplay = document.getElementById("digits");
 
 function buttonClicked(button) {
